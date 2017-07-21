@@ -83,19 +83,21 @@
       /* Test that ensures when a new feed is loaded
        * by the loadFeed function that the content actually changes.
        */
+       
        beforeEach(function(done) {
            loadFeed(0, done);
            done();
        });
 
       it('should add new content when it loads the feed item', function(done) {
-        var $feed = $('.feed');
-
-        for(var i = 0; i<$feed.children().find('*').children().length; i++ ) {
-          expect($feed.children().find('*').children()[i]).not.toEqual($feed.children().find('*').children()[i+1]);
+        var $firstFeed = $('.feed').text();
+        loadFeed(2, function() {
+          var $secondFeed = $('.feed').text()
+          expect($firstFeed).not.toEqual($secondFeed);
           done();
-        }
+        });
       });
+
     });
 
 }());
